@@ -19,65 +19,61 @@ func TestCheckPrimesHandler(t *testing.T) {
 
 	testCases := [...]struct {
 		name             string
-		input            Request
+		input            interface{}
 		expectedStatus   int
 		expectedResponse Response
 	}{
 		{
-			name: "empty",
-			input: Request{
-				Numbers: []int{},
-			},
+			name:           "empty",
+			input:          []int{},
 			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{},
 			},
 		},
 		{
-			name: "primes and no primes",
-			input: Request{
-				Numbers: []int{2, 3, 4, 5, 6},
-			},
+			name:           "primes and no primes",
+			input:          []int{2, 3, 4, 5, 6},
 			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{true, true, false, true, false},
 			},
 		},
 		{
-			name: "primes",
-			input: Request{
-				Numbers: []int{7, 11, 13, 17, 19},
-			},
+			name:           "primes",
+			input:          []int{7, 11, 13, 17, 19},
 			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{true, true, true, true, true},
 			},
 		},
 		{
-			name: "no primes",
-			input: Request{
-				Numbers: []int{math.MaxInt64, 10, 12, 14, 15},
-			},
+			name:           "no primes",
+			input:          []int{math.MaxInt64, 10, 12, 14, 15},
 			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{false, false, false, false, false},
 			},
 		},
 		{
-			name: "zero and negative",
-			input: Request{
-				Numbers: []int{0, 1, -5, -100, -74},
-			},
+			name:           "zero and negative",
+			input:          []int{0, 1, -5, -100, -74},
 			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{false, false, false, false, false},
 			},
 		},
 		{
-			name: "zero and negative",
-			input: Request{
-				Numbers: []int{-11, math.MaxInt64, 8, 41, 37},
+			name:           "zero and negative",
+			input:          []int{-11, 19 * 41, 8, 41, 37},
+			expectedStatus: http.StatusOK,
+			expectedResponse: Response{
+				IsPrime: []bool{false, false, false, true, true},
 			},
+		},
+		{
+			name:           "string",
+			input:          " ",
 			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{false, false, false, true, true},
