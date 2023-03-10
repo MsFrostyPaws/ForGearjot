@@ -18,7 +18,7 @@ type Response struct {
 func IsPrimeNumber(c *gin.Context) {
 	var req Request
 	if err := c.BindJSON(&req); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "the given input is invalid"})
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "the given input is invalid."})
 		return
 	}
 

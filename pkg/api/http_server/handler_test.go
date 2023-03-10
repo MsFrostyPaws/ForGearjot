@@ -3,6 +3,7 @@ package httpserver
 import (
 	"bytes"
 	"encoding/json"
+	"math"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -19,6 +20,7 @@ func TestCheckPrimesHandler(t *testing.T) {
 	testCases := [...]struct {
 		name             string
 		input            Request
+		expectedStatus   int
 		expectedResponse Response
 	}{
 		{
@@ -26,6 +28,7 @@ func TestCheckPrimesHandler(t *testing.T) {
 			input: Request{
 				Numbers: []int{},
 			},
+			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{},
 			},
@@ -35,6 +38,7 @@ func TestCheckPrimesHandler(t *testing.T) {
 			input: Request{
 				Numbers: []int{2, 3, 4, 5, 6},
 			},
+			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{true, true, false, true, false},
 			},
@@ -44,6 +48,7 @@ func TestCheckPrimesHandler(t *testing.T) {
 			input: Request{
 				Numbers: []int{7, 11, 13, 17, 19},
 			},
+			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{true, true, true, true, true},
 			},
@@ -51,8 +56,9 @@ func TestCheckPrimesHandler(t *testing.T) {
 		{
 			name: "no primes",
 			input: Request{
-				Numbers: []int{8, 10, 12, 14, 15},
+				Numbers: []int{math.MaxInt64, 10, 12, 14, 15},
 			},
+			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{false, false, false, false, false},
 			},
@@ -62,8 +68,19 @@ func TestCheckPrimesHandler(t *testing.T) {
 			input: Request{
 				Numbers: []int{0, 1, -5, -100, -74},
 			},
+			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
 				IsPrime: []bool{false, false, false, false, false},
+			},
+		},
+		{
+			name: "zero and negative",
+			input: Request{
+				Numbers: []int{-11, math.MaxInt64, 8, 41, 37},
+			},
+			expectedStatus: http.StatusOK,
+			expectedResponse: Response{
+				IsPrime: []bool{false, false, false, true, true},
 			},
 		},
 	}

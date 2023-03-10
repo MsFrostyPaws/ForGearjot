@@ -15,6 +15,8 @@ func TestIsPrime(t *testing.T) {
 		{"prime number", 11, true},
 		{"6", 6, false},
 		{"1", 1, false},
+		{"9", 9, false},
+		{"19 * 41", 19 * 41, false},
 	}
 
 	for _, tt := range tests {
