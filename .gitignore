@@ -1,3 +1,17 @@
-.bin
+### VisualStudioCode template
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+### Go template
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.sum
 coverage.out
+
 vendor
+.bin
