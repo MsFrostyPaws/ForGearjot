@@ -12,7 +12,7 @@ type Request struct {
 }
 
 type Response struct {
-	IsTrue []bool `json:"response"`
+	IsPrime []bool `json:"response"`
 }
 
 func IsPrimeNumber(c *gin.Context) {
@@ -27,6 +27,6 @@ func IsPrimeNumber(c *gin.Context) {
 		results[i] = primes.IsPrime(n)
 	}
 
-	res := Response{IsTrue: results}
+	res := Response{IsPrime: results}
 	c.JSON(http.StatusOK, res)
 }

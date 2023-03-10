@@ -8,11 +8,13 @@ func TestIsPrime(t *testing.T) {
 		input    int
 		expected bool
 	}{
-		{"negative numbers", -1, false},
+		{"negative numbers", -99, false},
 		{"0", 0, false},
 		{"2", 2, true},
 		{"even number", 4, false},
 		{"prime number", 11, true},
+		{"6", 6, false},
+		{"1", 1, false},
 	}
 
 	for _, tt := range tests {

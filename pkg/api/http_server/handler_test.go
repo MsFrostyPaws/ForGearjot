@@ -25,7 +25,7 @@ func TestCheckPrimesHandler(t *testing.T) {
 				Numbers: []int{},
 			},
 			expectedResponse: Response{
-				IsTrue: []bool{},
+				IsPrime: []bool{},
 			},
 		},
 		{
@@ -34,7 +34,7 @@ func TestCheckPrimesHandler(t *testing.T) {
 				Numbers: []int{2, 3, 4, 5, 6},
 			},
 			expectedResponse: Response{
-				IsTrue: []bool{true, true, false, true, false},
+				IsPrime: []bool{true, true, false, true, false},
 			},
 		},
 		{
@@ -43,7 +43,7 @@ func TestCheckPrimesHandler(t *testing.T) {
 				Numbers: []int{7, 11, 13, 17, 19},
 			},
 			expectedResponse: Response{
-				IsTrue: []bool{true, true, true, true, true},
+				IsPrime: []bool{true, true, true, true, true},
 			},
 		},
 		{
@@ -52,13 +52,23 @@ func TestCheckPrimesHandler(t *testing.T) {
 				Numbers: []int{8, 10, 12, 14, 15},
 			},
 			expectedResponse: Response{
-				IsTrue: []bool{false, false, false, false, false},
+				IsPrime: []bool{false, false, false, false, false},
+			},
+		},
+		{
+			name: "zero and negative",
+			input: Request{
+				Numbers: []int{0, 1, -5, -100, -74},
+			},
+			expectedResponse: Response{
+				IsPrime: []bool{false, false, false, false, false},
 			},
 		},
 	}
 
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Logf("name: %v", tt.name)
 			inputBytes, _ := json.Marshal(tt.input)
 			req, _ := http.NewRequest(http.MethodPost, "/", bytes.NewBuffer(inputBytes))
 
@@ -69,8 +79,8 @@ func TestCheckPrimesHandler(t *testing.T) {
 				t.Errorf("error decoding: %v", err)
 			}
 
-			if len(res.IsTrue) != len(tt.expectedResponse.IsTrue) {
-				t.Errorf("expected %d results, but %d", len(tt.expectedResponse.IsTrue), len(res.IsTrue))
+			if len(res.IsPrime) != len(tt.expectedResponse.IsPrime) {
+				t.Errorf("expected %d results, but %d", len(tt.expectedResponse.IsPrime), len(res.IsPrime))
 			}
 
 		})
