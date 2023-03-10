@@ -18,5 +18,3 @@ make test
 - Thoughts on the future of this app;
 - A rest client (tests/rest);
 - Gin - a HTTP web framework. It is Fast, Crash-free and Extendable;
-
-Lepneva Anna

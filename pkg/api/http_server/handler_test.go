@@ -11,10 +11,12 @@ import (
 )
 
 func TestCheckPrimesHandler(t *testing.T) {
+	t.Parallel()
+
 	router := gin.New()
 	router.POST("/", IsPrimeNumber)
 
-	testCases := []struct {
+	testCases := [...]struct {
 		name             string
 		input            Request
 		expectedResponse Response
@@ -67,13 +69,18 @@ func TestCheckPrimesHandler(t *testing.T) {
 	}
 
 	for _, tt := range testCases {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			t.Logf("name: %v", tt.name)
-			inputBytes, _ := json.Marshal(tt.input)
-			req, _ := http.NewRequest(http.MethodPost, "/", bytes.NewBuffer(inputBytes))
+			t.Parallel()
+			inputBytes, err := json.Marshal(tt.input)
+			if err != nil {
+				t.Errorf("an error happened: %v", err)
+			}
+			req := httptest.NewRequest(http.MethodPost, "/", bytes.NewBuffer(inputBytes))
 
 			w := httptest.NewRecorder()
 			router.ServeHTTP(w, req)
+
 			var res Response
 			if err := json.NewDecoder(w.Body).Decode(&res); err != nil {
 				t.Errorf("error decoding: %v", err)

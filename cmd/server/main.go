@@ -6,7 +6,7 @@ func main() {
 	r := httpserver.CreateRouter()
 	r.Run()
 
-	//For future:
+	// For future:
 
 	// parsing config.
 
