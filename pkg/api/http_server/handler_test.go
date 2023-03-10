@@ -72,11 +72,19 @@ func TestCheckPrimesHandler(t *testing.T) {
 			},
 		},
 		{
-			name:           "string",
+			name:           "empty string",
 			input:          " ",
 			expectedStatus: http.StatusOK,
 			expectedResponse: Response{
-				IsPrime: []bool{false, false, false, true, true},
+				IsPrime: nil,
+			},
+		},
+		{
+			name:           "strings and numbers",
+			input:          []string{"nan", "nan"},
+			expectedStatus: http.StatusOK,
+			expectedResponse: Response{
+				IsPrime: nil,
 			},
 		},
 	}
@@ -89,6 +97,7 @@ func TestCheckPrimesHandler(t *testing.T) {
 			if err != nil {
 				t.Errorf("an error happened: %v", err)
 			}
+
 			req := httptest.NewRequest(http.MethodPost, "/", bytes.NewBuffer(inputBytes))
 
 			w := httptest.NewRecorder()

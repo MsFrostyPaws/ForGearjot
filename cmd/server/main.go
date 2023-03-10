@@ -2,6 +2,7 @@ package main
 
 import httpserver "Gearjot/pkg/api/http_server"
 
+//create and run router
 func main() {
 	r := httpserver.CreateRouter()
 	r.Run()

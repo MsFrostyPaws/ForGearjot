@@ -28,7 +28,7 @@ func TestIsPrime(t *testing.T) {
 	}
 }
 
-func Benchmark(b *testing.B) {
+func BenchmarkForPrimes(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		IsPrime(n)
 	}
