@@ -16,15 +16,14 @@ type Response struct {
 }
 
 func IsPrimeNumber(c *gin.Context) {
-	var reqBody Request
-	if err := c.BindJSON(&reqBody); err != nil {
-
+	var req Request
+	if err := c.BindJSON(&req); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "the given input is invalid"})
 		return
 	}
 
-	results := make([]bool, len(reqBody.Numbers))
-	for i, n := range reqBody.Numbers {
+	results := make([]bool, len(req.Numbers))
+	for i, n := range req.Numbers {
 		results[i] = primes.IsPrime(n)
 	}
 

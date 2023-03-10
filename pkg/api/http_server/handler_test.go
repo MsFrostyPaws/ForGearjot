@@ -46,6 +46,15 @@ func TestCheckPrimesHandler(t *testing.T) {
 				IsTrue: []bool{true, true, true, true, true},
 			},
 		},
+		{
+			name: "no primes",
+			input: Request{
+				Numbers: []int{8, 10, 12, 14, 15},
+			},
+			expectedResponse: Response{
+				IsTrue: []bool{false, false, false, false, false},
+			},
+		},
 	}
 
 	for _, tt := range testCases {

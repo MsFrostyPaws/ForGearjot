@@ -13,9 +13,10 @@ And simply test by \:
 make test
 `
 
-I also added a rest client. You can find it in the folder *\tests\rest\PrimeNumberTester.http*, edit request values and run it by **send**.
-(Maybe you need to add a "REST Client" extensions).
-
-Added benchmarks to tests.
+### Added:
+- Benchmarks to tests;
+- Thoughts on the future of this app;
+- A rest client (tests/rest);
+- Gin - a HTTP web framework. It is Fast, Crash-free and Extendable;
 
 Lepneva Anna
