@@ -1,4 +1,4 @@
-# Gearjot
+
 
 API for checking prime numbers.
 
