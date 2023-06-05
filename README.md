@@ -1,4 +1,4 @@
-# Gearjot
+# Is it Prime?
 
 This is a API for checking prime numbers.
 ### API Endpoint Format:
